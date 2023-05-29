@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import { FaBars,} from "react-icons/fa";
-import Logo from '../Assets/Logo/HealthLogo.png.png'
+import Logo from '../../Assets/Logo/HealthLogo.png.png'
 
 const Navbar = () => {
 
 
-  let [open, setOpen] = useState(false);
-  let [serviceOpen, setServiceOpen] = useState(false);
+  // let [open, setOpen] = useState(false);
+  // let [serviceOpen, setServiceOpen] = useState(false);
 
   let Links = [
     { name: "Heart", link: "/" },
