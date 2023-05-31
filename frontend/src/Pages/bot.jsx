@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const bot = () => {
+
+const Bot = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef(null);
@@ -21,19 +22,18 @@ const bot = () => {
   }, []);
 
   useEffect(() => {
-   //bas backend s chatgpt call karna h 
+    // Scroll to the bottom of the messages
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   const handleSendMessage = async () => {
     if (!inputMessage) return;
 
-
     setMessages((prevMessages) => [...prevMessages, { text: inputMessage, isUser: true }]);
     setInputMessage('');
 
     try {
-     
+      // Send user message to the backend server
       const response = await axios.post('/api/chat', { message: inputMessage }); // Replace with your API endpoint for chat
       setMessages((prevMessages) => [...prevMessages, { text: response.data, isUser: false }]);
     } catch (error) {
@@ -43,7 +43,7 @@ const bot = () => {
 
   return (
     <div className="flex flex-col h-screen">
-      <div className="flex-1  overflow-y-auto px-4 py-8">
+      <div className="flex-1 overflow-y-auto px-4 py-8">
         {messages.map((message, index) => (
           <div
             key={index}
@@ -77,4 +77,4 @@ const bot = () => {
   );
 };
 
-export default bot;
+export default Bot;
