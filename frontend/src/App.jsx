@@ -6,6 +6,7 @@ import Map from '../src/Pages/map'
 import Hospitals from '../src/Pages/hospitals'
 import Bot from '../src/Pages/bot'
 import Ambulance from '../src/Pages/ambulance'
+
 function App() {
   return (
     <>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ambulanceBackground from '../Assets/Card/amb.jpg'
 const AmbulanceDetails = ({ city }) => {
-  // Assuming you have ambulance details for each city
+  // Assuming you have ambulance details for each city {dummy data }
   const ambulanceDetails = {
     London: [
       { id: 1, name: 'Ambulance A', contact: '123-456-7890' },

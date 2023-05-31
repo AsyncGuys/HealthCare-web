@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const API_endpoint = "https://api.openweathermap.org/data/2.5/weather?";
-const API_key = "2ac877763578b464144d68af13528b19";
+const API_key = "";
 
 const Map = () => {
   const [latitude, setLatitude] = useState('');
