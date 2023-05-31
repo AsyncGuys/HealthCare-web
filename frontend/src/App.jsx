@@ -6,6 +6,9 @@ import Map from '../src/Pages/map'
 import Hospitals from '../src/Pages/hospitals'
 import Bot from '../src/Pages/bot'
 import Ambulance from '../src/Pages/ambulance'
+import Landing from './Pages/Landing';
+import Footer from './components/common/Footer';
+import Navbar from './components/common/Navbar';
 function App() {
   return (
     <>
@@ -14,14 +17,17 @@ function App() {
      <Footer /> */}
 
      <BrowserRouter>
+     <Navbar/>
       <Routes>
-        <Route exact path='/' element ={<Home/>} />
+        <Route exact path='/' element ={<Landing/>} />
+        <Route exact path='/checkup' element ={<Home/>} />
         <Route path='/map' element ={<Map/>} />
         <Route path='/bot' element ={<Bot/>} />
         <Route path='/ambulance' element ={<Ambulance/>} />
         <Route path='/hospitals' element ={<Hospitals/>} />
      </Routes>
      </BrowserRouter>
+     <Footer/>
     </>
   )
 }

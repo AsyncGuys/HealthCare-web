@@ -3,14 +3,10 @@ import eye from '../Assets/Card/eye.jpg'
 import dia from '../Assets/Card/diabeties.jpeg'
 import mri from '../Assets/Card/MRI.webp'
 import skin from '../Assets/Card/skin.jpg'
- import Navbar from "../components/common/Navbar"
- import Footer from '../Pages/footer.jsx'
 const Home = () => {
   return (
-  <div className='bg-[#F5F5F5]' >
-    <Navbar/>
+  <div className='w-full' >
      <div className='mt-16'>
-
     {/* heart  */}
  <div className="min-w-screen min-h-screen shadow-md  flex items-center p-5 lg:p-10 overflow-hidden relative">
     <div className="w-full max-w-6xl rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
@@ -66,9 +62,7 @@ const Home = () => {
         </div>
     </div>
  </div>
-
  {/* skin */}
-
  <div className="min-w-screen min-h-screen shadow-md  flex items-center p-5 lg:p-10 overflow-hidden relative">
     <div className="w-full max-w-6xl rounded bg-white shadow-xl p-10 lg:p-20 mx-auto text-gray-800 relative md:text-left">
         <div className="md:flex items-center -mx-10">
@@ -156,7 +150,6 @@ const Home = () => {
 
 
   </div>
-  <Footer/>
 </div>
 
 

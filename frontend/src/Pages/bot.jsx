@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const bot = () => {
+const Bot = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef(null);
@@ -27,13 +27,9 @@ const bot = () => {
 
   const handleSendMessage = async () => {
     if (!inputMessage) return;
-
-
     setMessages((prevMessages) => [...prevMessages, { text: inputMessage, isUser: true }]);
     setInputMessage('');
-
     try {
-     
       const response = await axios.post('/api/chat', { message: inputMessage }); // Replace with your API endpoint for chat
       setMessages((prevMessages) => [...prevMessages, { text: response.data, isUser: false }]);
     } catch (error) {
@@ -42,7 +38,7 @@ const bot = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen w-20">
       <div className="flex-1  overflow-y-auto px-4 py-8">
         {messages.map((message, index) => (
           <div
@@ -77,4 +73,4 @@ const bot = () => {
   );
 };
 
-export default bot;
+export default Bot;
