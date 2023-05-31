@@ -1,19 +1,19 @@
-// import React, { useState } from "react";
+ import React, { useState } from "react";
 import { FaBars,} from "react-icons/fa";
 import Logo from '../../Assets/Logo/HealthLogo.png.png'
 
 const Navbar = () => {
 
 
-  // let [open, setOpen] = useState(false);
-  // let [serviceOpen, setServiceOpen] = useState(false);
+   let [open, setOpen] = useState(false);
+  let [serviceOpen, setServiceOpen] = useState(false);
 
   let Links = [
-    { name: "Heart", link: "/" },
-    { name: "MRI", link: "/" },
-    { name: "Skin", link: "/" },
-    { name: "Diabetes", link: "/" },
-    { name: "Eye", link: "/" },
+    { name: "Home", link: "/" },
+    { name: "Map", link: "/map" },
+    { name: "Doctor-Bot", link: "/bot" },
+    { name: "Ambulance", link: "/ambulance" },
+    { name: "Hospitals", link: "/hospitals" },
   ];
 
   return (

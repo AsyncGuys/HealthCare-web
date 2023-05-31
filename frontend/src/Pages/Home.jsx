@@ -3,11 +3,12 @@ import eye from '../Assets/Card/eye.jpg'
 import dia from '../Assets/Card/diabeties.jpeg'
 import mri from '../Assets/Card/MRI.webp'
 import skin from '../Assets/Card/skin.jpg'
-// import Navbar from "../components/common/Navbar"
+ import Navbar from "../components/common/Navbar"
+ import Footer from '../Pages/footer.jsx'
 const Home = () => {
   return (
   <div className='bg-[#F5F5F5]' >
-    {/* <Navbar/> */}
+    <Navbar/>
      <div className='mt-16'>
 
     {/* heart  */}
@@ -155,7 +156,9 @@ const Home = () => {
 
 
   </div>
+  <Footer/>
 </div>
+
 
 
   )
