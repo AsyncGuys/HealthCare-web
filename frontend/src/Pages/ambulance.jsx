@@ -3,18 +3,27 @@ import ambulanceBackground from '../Assets/Card/amb.jpg'
 const AmbulanceDetails = ({ city }) => {
   // Assuming you have ambulance details for each city {dummy data }
   const ambulanceDetails = {
-    London: [
-      { id: 1, name: 'Ambulance A', contact: '123-456-7890' },
-      { id: 2, name: 'Ambulance B', contact: '987-654-3210' },
+    Delhi: [
+      { id: 1, name: 'National Heart Institute', contact: '	011- 26441293' },
+      { id: 2, name: 'Sir Ganga Ram Hospital', contact: '011- 25750000' },
+      { id: 3, name: 'Batra Hospital', contact: '	011- 26083747' },
+      { id: 4, name: 'MP Heart Centre', contact: '011- 6413436' },      
+      { id: 5, name: ' Anand Hospital  ', contact: '	011- 2224126' },
+      { id: 6, name: ' Jaslok Hospital', contact: '011-40554055' },      
+
     ],
-    NewYork: [
-      { id: 3, name: 'Ambulance C', contact: '111-222-3333' },
-      { id: 4, name: 'Ambulance D', contact: '444-555-6666' },
+    Mumbai: [
+      { id: 7, name: 'Bombay Hospital', contact: '022-22067676' },
+      { id: 8, name: 'Cooper Hospital ', contact: ' 022-26207254' },
+      { id: 9, name: 'Sir J.J. Hospital Byculla ', contact: '  022-23739031' },
+      { id: 10, name: 'KEM Hospital Parel ', contact: '022-24107000 ' },
+      { id: 11, name: 'Poddar Hospital ', contact: ' 24931846' },
+      { id: 12, name: 'Cooper Hospital ', contact: '23671888 ' },        
     ],
-    Paris: [
-      { id: 5, name: 'Ambulance E', contact: '999-888-7777' },
-      { id: 6, name: 'Ambulance F', contact: '222-333-4444' },
-    ],
+    Banglore: [
+      { id: 13, name: 'BBMP Cantonment', contact: '080-25571488' },
+      { id: 14, name: 'Bhartiya Red Cross Society', contact: '080-22264205' },
+      { id: 14, name: 'BBMP City Area', contact: '080-22975829' },    ],
   };
 
   const [selectedCity, setSelectedCity] = useState(city);
@@ -29,31 +38,31 @@ const AmbulanceDetails = ({ city }) => {
         <div className = "bg-[#E5E0FF] border-double rounded-lg border-4 border-black">
           <li
             className={`cursor-pointer ${
-              selectedCity === 'London' ? 'font-bold' : ''
+              selectedCity === 'Delhi' ? 'font-bold' : ''
             }`}
-            onClick={() => setSelectedCity('London')}
+            onClick={() => setSelectedCity('Delhi')}
           >
-            London
+            Delhi
           </li>
           </div> 
           <div className = "bg-[#E5E0FF] border-double rounded-lg border-4 border-black">
           <li
             className={`cursor-pointer ${
-              selectedCity === 'NewYork' ? 'font-bold' : ''
+              selectedCity === 'Mumbai' ? 'font-bold' : ''
             }`}
-            onClick={() => setSelectedCity('NewYork')}
+            onClick={() => setSelectedCity('Mumbai')}
           >
-            New York
+            Mumbai 
           </li>
           </div>
           <div className = "bg-[#E5E0FF] border-double rounded-lg border-4 border-black">
           <li
             className={`cursor-pointer ${
-              selectedCity === 'Paris' ? 'font-bold' : ''
+              selectedCity === 'Banglore' ? 'font-bold' : ''
             }`}
-            onClick={() => setSelectedCity('Paris')}
+            onClick={() => setSelectedCity('Banglore')}
           >
-            Paris
+            Banglore 
           </li>
           </div>
         </ul>
@@ -86,7 +95,7 @@ const App = () => {
   return (
     <div className="flex justify-center">
       <div className="max-w-3xl w-full p-8">
-        <AmbulanceDetails city="London" />
+        <AmbulanceDetails city="Delhi" />
       </div>
     </div>
   );
