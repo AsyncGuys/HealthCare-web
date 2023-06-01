@@ -62,7 +62,7 @@ const Chatbot = () => {
             </button>
             <h1 className='text-center font-poppins font-bold mix-blend-normal mb-2'>Your  AI Doctor</h1>
           </div>
-          <div className="h-64 overflow-y-auto">
+          <div className="h-64 overflow-y-auto"> 
             {messages.map((message, index) => (
               <div key={index} className="mb-2  bg-blue-500 text-white rounded-lg p-3 max-w-xs w-full break-words transition-all duration-100">
                 {message}
