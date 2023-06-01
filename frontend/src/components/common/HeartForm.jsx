@@ -1,6 +1,6 @@
 const HeartForm = () => {
   return (
-    <div className="mt-24">
+    <div className="mt-24 mb-28">
        <form className="max-w-md mx-auto">
        <div className="mb-4">
       <label htmlFor="gender" className="block font-bold mb-1">Gender</label>
@@ -33,8 +33,9 @@ const HeartForm = () => {
     <input id="chol" type="number" step="0.01" name="chol" className="w-full p-2 border border-gray-300 rounded-md"/>
   </div>
   <div className="mb-4">
-    <label htmlFor="fbs" className="block font-bold mb-1">Is Fast Blood Sugar ?</label>
+    <label htmlFor="fbs" className="block font-bold mb-1">Is Fast Blood Sugar?</label>
     <select id="fbs" name="fbs" className="w-full p-2 border border-gray-300 rounded-md">
+      <option value="0"></option>
       <option value="0">No</option>
       <option value="1">Yes</option>
     </select>
@@ -66,6 +67,7 @@ const HeartForm = () => {
 <div className="mb-4">
     <label htmlFor="slp" className="block font-bold mb-1">Slope of the peak exercise</label>
     <select id="slp" name="slp" className="w-full p-2 border border-gray-300 rounded-md">
+      <option value="0"></option>
       <option value="0">Unsloping</option>
       <option value="1">flat</option>
       <option value="2">downsloping</option>
@@ -74,6 +76,7 @@ const HeartForm = () => {
   <div className="mb-4">
     <label htmlFor="thall" className="block font-bold mb-1">Slope thalassemia</label>
     <select id="slp" name="slp" className="w-full p-2 border border-gray-300 rounded-md">
+      <option value="0"></option>
       <option value="0">null</option>
       <option value="1">fixed defect</option>
       <option value="2">normal</option>
@@ -83,13 +86,14 @@ const HeartForm = () => {
   <div className="mb-4">
     <label htmlFor="caa" className="block font-bold mb-1">Slope Number of major vessels</label>
     <select id="caa" name="caa" className="w-full p-2 border border-gray-300 rounded-md">
+      <option value="0"></option>
       <option value="0">0</option>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
     </select>
   </div>
-
+       <button type="submit" className="bg-blue-500 rounded-full font-poppins font-bold text-base leading-20 text-white mix-blend-normal object-contain p-3 min-w-[100px]">Submit</button>
        </form>
     </div>
   )
