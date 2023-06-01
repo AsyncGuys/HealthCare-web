@@ -2,29 +2,16 @@ const express = require("express");
 const bodyParser=require("body-parser")
 const request=require("request")
 const errorMiddleware = require("./middleware/error");
+const helmet = require("helmet");
+const { Configuration, OpenAIApi } = require("openai");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
 
 
 const app = express();
-app.use(express.static("public"))
-app.use(bodyParser.urlencoded({extended:false}))
-
-const storage=multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,__dirname+'/Images')
-    },
-    filename:(req,file,cb)=>{
-        console.log(file)
-        cb(null,path.extname(file.originalname))
-    }
-})
-
-const upload = multer({storage:storage});
-
-
-// import { Configuration, OpenAIApi } from "openai";
-
-
 app.use(express.json());
 // app.use(helmet());
 // app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -35,17 +22,16 @@ app.use(express.json());
 
 /* OPEN_AI CONFIGURATION */
 
-// const configuration = new Configuration({
-//   apiKey: process.env.OPEN_API_KEY,
-// });
-// export const openai = new OpenAIApi(configuration);
+const configuration = new Configuration({
+  apiKey: process.env.OPEN_API_KEY,
+});
+export const openai = new OpenAIApi(configuration);
 
 // ROUTE imports
 const user = require("./routes/userRoutes");
-const model = require("./model");
 
 app.use("/api/v1", user);
-app.use("/model",model)
+app.use("/openai", openAiRoutes);
 
 //middleware for error
 app.use(errorMiddleware);
