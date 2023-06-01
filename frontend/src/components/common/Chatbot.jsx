@@ -1,31 +1,48 @@
 import { useState } from "react";
 import { GrClose } from "react-icons/gr";
+import axios from "axios";
 const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState("");
-  const toggleChatbox = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleSendMessage = async (inputMessage) => {
+  const [inputValue, setInputValue] = useState('');
+  const [chatLog, setChatLog] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpen,setisOpen]=useState(false);
+  const toggleChatbox=()=>{
+    setisOpen(!isOpen)
+  }
+  const handleSubmit = () => {
+    setChatLog((prevChatLog) => [...prevChatLog, { type: 'user', message: inputValue }])
+    sendMessage(inputValue);
+    setInputValue('');
+  }
+  console.log(inputValue)
+  const sendMessage = async (inputMessage) => {
     if (!inputMessage) return;
-    setMessages((prevMessages) => [...inputMessage]);
-    setInputMessage("");
+    console.log(inputMessage)
     try {
-      const response = await axios.post("/api/chat", { message: inputMessage }); // Replace with your API endpoint for chat
-      setMessages((prevMessages) => [...inputMessage]);
+      // const response = await fetch(`http://127.0.0.1:4000/ai-doctor`, {
+      //   method: "POST",
+      //   body: inputMessage,
+      // });
+      const response = await axios.post("http://127.0.0.1:4000/ai-doctor", {
+        inputMessage:inputMessage,
+      });
+      // axios.post('/api/', {
+      //   firstName: 'Fred',
+      //   lastName: 'Flintstone'
+      // })
+      // .then(function (response) {
+      //   console.log(response);
+      // })
+      // .catch(function (error) {
+      //   console.log(error);
+      // });
+      const datafrombot = response.data;
+      console.log(datafrombot)
+      setChatLog(prevChatLog => [...prevChatLog,{type:'bot',message:datafrombot.data}]);
     } catch (error) {
       console.error("Error sending message:", error);
     }
-    const response = await fetch(`http://127.0.0.1:4000/ai-doctor`, {
-      method: "POST",
-      body: inputMessage,
-    });
-    const data = await response.json();
-    setMessages(data);
   };
-
   return (
     <div className="fixed bottom-4 right-4">
       {!isOpen && (
@@ -71,12 +88,13 @@ const Chatbot = () => {
             </h1>
           </div>
           <div className="h-64 overflow-y-auto"> 
-            {messages.map((message, index) => (
+            {chatLog.map((chat, index) => (
               <div
                 key={index}
-                className="mb-2  bg-blue-500 text-white rounded-lg p-3 max-w-xs w-full break-words transition-all duration-100"
+                className="mb-2  text-black rounded-lg p-3 max-w-xs w-full break-words transition-all duration-100"
+                style={{backgroundColor: `${chat.type=='user' ? "blue":"white"}`}}
               >
-                {message}
+                 {chat.message}
               </div>
             ))}
           </div>
@@ -86,14 +104,14 @@ const Chatbot = () => {
               className="border rounded p-2 w-full outline-none "
               placeholder="Type your message..."
               onChange={(e) => {
-                setInputMessage(e.target.value);
+                setInputValue(e.target.value);
               }}
               name="inputmsg"
-              value={inputMessage}
+              value={inputValue}
             />
             <button
               className="bg-[#146C94] text-white rounded-xl px-4 py-2 ml-2 mt-3 font-poppins"
-              onClick={() => handleSendMessage(inputMessage)}
+              onClick={handleSubmit}
             >
               Send
             </button>

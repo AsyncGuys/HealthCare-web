@@ -31,11 +31,12 @@ app.use("/api/v1", user);
 /////////////// ai-doctor //////////////////
 app.post("/ai-doctor", async (req, res) => {
   try {
-    const { inputMessage } = req.body;
+    const msg = req.body.inputMessage;
+    console.log(msg)
     const response = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: `
-      ${inputMessage}
+      ${msg}
 
       you are a senior doctor and I am a patient tell me the necessary answers in less than 30 words
       ###
