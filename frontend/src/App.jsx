@@ -9,6 +9,8 @@ import Ambulance from '../src/Pages/ambulance'
 import Landing from './Pages/Landing';
 import Footer from './components/common/Footer';
 import Navbar from './components/common/Navbar';
+import DiabetessForm from './components/common/DiabetessForm';
+import HeartForm from './components/common/HeartForm';
 function App() {
   return (
     <>
@@ -20,7 +22,9 @@ function App() {
      <Navbar/>
       <Routes>
         <Route exact path='/' element ={<Landing/>} />
-        <Route exact path='/checkup' element ={<Home/>} />
+        <Route exact path='/checkup' element ={<Home/>}/>
+        <Route exact path='/checkup/diabetes' element ={<DiabetessForm/>}/>
+        <Route exact path='/checkup/heart' element ={<HeartForm/>}/>
         <Route path='/map' element ={<Map/>} />
         <Route path='/bot' element ={<Bot/>} />
         <Route path='/ambulance' element ={<Ambulance/>} />
