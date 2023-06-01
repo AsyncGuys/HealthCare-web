@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GrClose } from "react-icons/gr";
 import axios from "axios";
+import bot from '../../Assets/bot.svg'
 const Chatbot = () => {
   const [inputValue, setInputValue] = useState('');
   const [chatLog, setChatLog] = useState([]);
@@ -47,10 +48,11 @@ const Chatbot = () => {
     <div className="fixed bottom-4 right-4">
       {!isOpen && (
         <button
-          className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center"
+          className="w-20 h-20 rounded-full bg-blue-500 text-white flex items-center justify-center"
           onClick={toggleChatbox}
         >
-          <svg
+        <img src={bot}/>
+          {/* <svg
             className="w-6 h-6"
             viewBox="0 0 24 24"
             fill="none"
@@ -74,7 +76,7 @@ const Chatbot = () => {
               strokeWidth="2"
               d="M3 18h18"
             />
-          </svg>
+          </svg> */}
         </button>
       )}
       {isOpen && (
