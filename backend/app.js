@@ -1,8 +1,14 @@
 const express = require("express");
 const errorMiddleware = require("./middleware/error");
-import { Configuration, OpenAIApi } from "openai";
+const helmet = require("helmet");
+const { Configuration, OpenAIApi } = require("openai");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
 const app = express();
+dotenv.config({ path: "config/config.env" });
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -16,13 +22,41 @@ app.use(cors());
 const configuration = new Configuration({
   apiKey: process.env.OPEN_API_KEY,
 });
-export const openai = new OpenAIApi(configuration);
+const openai = new OpenAIApi(configuration);
 
 // ROUTE imports
 const user = require("./routes/userRoutes");
-
 app.use("/api/v1", user);
-app.use("/openai", openAiRoutes);
+
+/////////////// ai-doctor //////////////////
+app.post("/ai-doctor", async (req, res) => {
+  try {
+    const { inputMessage } = req.body;
+    const response = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: `
+      ${inputMessage}
+
+      you are a senior doctor and I am a patient tell me the necessary answers in less than 30 words
+      ###
+    `,
+      max_tokens: 64,
+      temperature: 0,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+      stop: ["\n"],
+    });
+    return res.status(200).json({
+      success: true,
+      data: response.data.choices[0].text,
+    });
+  } catch (error) {
+    console.error(error.response);
+    res.status(500).json({ error: error });
+  }
+});
+/////////////////////////////////////////
 
 //middleware for error
 app.use(errorMiddleware);

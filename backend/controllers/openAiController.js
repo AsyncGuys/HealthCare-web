@@ -1,6 +1,7 @@
-import express from "express";
-import dotenv from "dotenv";
-import { openai } from "../app";
+const express = require("express");
+const dotenv = require("dotenv");
+
+const { openai } = require("../app");
 
 dotenv.config();
 const router = express.Router();
@@ -10,7 +11,7 @@ router.post("/text", async (req, res) => {
     const { text } = req.body;
 
     const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      model: "text-davinci-003",
       messages: [
         {
           role: "system",
@@ -23,9 +24,8 @@ router.post("/text", async (req, res) => {
 
     res.status(200).json({ text: response.data.choices[0].message.content });
   } catch (error) {
-    console.error("error", error.response.data.error);
-    res.status(500).json({ error: error.message });
+    console.error(error.response);
+    res.status(500).json({ error: error });
   }
 });
-
-export default router;
+module.exports = router;
