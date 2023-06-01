@@ -5,8 +5,17 @@ const tfjs=require("@tensorflow/tfjs-node")
 const multer=require("multer")
 const path=require('path')
 const fs = require('fs');
+const cors = require("cors");
+const morgan = require("morgan");
+const helmet  = require("helmet");
 
-
+const app=express()
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(cors());
 const storage=multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,__dirname+'/Images')
@@ -18,7 +27,7 @@ const storage=multer.diskStorage({
 })
 
 const upload = multer({storage:storage});
-const app=express()
+
 
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended:false}))
@@ -29,44 +38,67 @@ app.get("/",function(req,res){
 })
 
 app.get("/heart",function(req,res){
-    res.sendFile(__dirname+"/form1.html")
+    res.send(path.dirname(__dirname)+"/frontend/src/components/common/HeartForm.jsx")
 })
 
-app.get("/tumor",function(req,res){
-    res.sendFile(__dirname+"/test.html")
-})
+// app.get("/tumor",function(req,res){
+//     res.sendFile(__dirname+"/test.html")
+// })
+
+// app.get("/tumor",function(req,res){
+//     res.sendFile(__dirname+"/test.html")
+// })
+
+// app.get("/tumor",function(req,res){
+//     res.sendFile(__dirname+"/test.html")
+// })
+
+
+
+
 
 app.post("/heart",function(req,res){
-    var list=[[parseInt(req.body.val1),
-            parseInt(req.body.val2),
-            parseInt(req.body.val3),
-            parseInt(req.body.val4),
-            parseInt(req.body.val5),
-            parseInt(req.body.val6),
-            parseInt(req.body.val7)]]    
+    console.log("Test`")
+    var list=[parseInt(req.body.sex),
+            req.body.age,
+            parseInt(req.body.cp),
+            req.body.trtbps,
+            req.body.chol,
+            parseInt(req.body.fbs),
+            parseInt(req.body.rest_ecg),
+            req.body.thalach,
+            req.body.exang,
+            req.body.oldpeak,
+            parseInt(req.body.slp),
+            parseInt(req.body.caa),
+            parseInt(req.body.thall)]
     console.log(list)
     const predictions=async()=>{
-        const pred=await loadModel(list)
+        const pred=await loadheart(list)
         console.log("pred:"+pred)
         res.send(pred)
     }
     predictions()
 })
 
-
-
-
-
-async function loadModel(list){
-    
-    const model=await tfjs.loadLayersModel("file://"+__dirname+"/Model/cropRecommendation/model.json")
-    console.log("test")
-    const y_pred= model.predict(tfjs.tensor(list))
+async function loadheart(list){
+    classes=["No","Yes"]
+    const model=await tfjs.loadLayersModel("file://"+__dirname+"/MLmodels/tfjHeart/model.json")
+    console.log()
+    list=tfjs.cast(tfjs.tensor(list),"float64")
+    console.log(list.shape)
+    // list=tfjs.expandDims(list)
+    // console.log(list.shape)
+    const y_pred= model.predict(list)
     console.log(y_pred.sum().dataSync())
     const prediction=tfjs.argMax(y_pred,axis=1)
     // const accuracy=y_pred.dataSync()[prediction.dataSync()]
-    return [prediction.dataSync()[0],accuracy]
+    return [classes[prediction.dataSync()[0]],accuracy]
 }
+
+
+
+
 
 
 app.post('/tumor',upload.single('image'),(req, res) => {
@@ -74,7 +106,7 @@ app.post('/tumor',upload.single('image'),(req, res) => {
     readImage(imagePath).then((imageTensor) => {
         const predictions=async()=>{
             const pred=await loadTumor(imageTensor)
-            console.log("pred:"+typeof(pred))
+            console.log("pred:"+pred)
             res.send({
                 prediction:pred
             })
@@ -105,6 +137,46 @@ async function loadTumor(image){
 
 
 
+app.post('/alzhimer',upload.single('image'),(req, res) => {
+    imagePath=__dirname+"/Images/.jpg"
+    readImage(imagePath).then((imageTensor) => {
+        const predictions=async()=>{
+            const pred=await loadAlzhimer(imageTensor)
+            console.log("pred:"+pred)
+            res.send({
+                prediction:pred
+            })
+        }
+        predictions()
+        console.log("TESTS:"+pred)
+        res.send("Hello")
+    }).catch((error) => {
+        console.error('Error reading image:', error);
+    });   
+    
+});       
+
+
+
+async function loadAlzhimer(image){
+    console.log("Test")
+    classes=["mild_demented","moderated_demented","non_demented","ver_mild_demented"]
+    var path="file://"+__dirname+"/MLmodels/tfjAlzhimer/model.json"
+    const model=await tfjs.loadLayersModel(path)
+    console.log("Test")
+    const y_pred=tfjs.variable(model.predict(image))
+    console.log("YPRED="+y_pred)
+    const prediction=tfjs.argMax(y_pred,axis=1)
+    const accuracy=y_pred.dataSync()[prediction.dataSync()]
+    return classes[prediction.dataSync()[0]]
+}
+
+
+
+
+
+
+
 
 async function readImage(path) {
     console.log("Test")
@@ -124,5 +196,5 @@ async function readImage(path) {
 
 
   app.listen(3000,function(){
-    console.log("Server is up and running on port 3000")  
+    console.log("Server is up and running on port 4000")  
 })
