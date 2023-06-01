@@ -1,20 +1,29 @@
-import  { useState } from 'react';
-import {GrClose} from 'react-icons/gr'
+import { useState } from "react";
+import { GrClose } from "react-icons/gr";
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [inputMessage, setInputMessage] = useState('');
+  const [inputMessage, setInputMessage] = useState("");
   const toggleChatbox = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleMessageSend = (message) => {
-      if(!inputMessage){
-            alert("enter something to chatbot");
-            return
-      }
-    setMessages([...messages, message]);
-    // Here you can handle the logic to send the message to the chatbot backend
+  const handleSendMessage = async (inputMessage) => {
+    if (!inputMessage) return;
+    setMessages((prevMessages) => [...inputMessage]);
+    setInputMessage("");
+    try {
+      const response = await axios.post("/api/chat", { message: inputMessage }); // Replace with your API endpoint for chat
+      setMessages((prevMessages) => [...inputMessage]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+    const response = await fetch(`http://127.0.0.1:4000/ai-doctor`, {
+      method: "POST",
+      body: inputMessage,
+    });
+    const data = await response.json();
+    setMessages(data);
   };
 
   return (
@@ -54,17 +63,19 @@ const Chatbot = () => {
       {isOpen && (
         <div className="bg-gradient-to-b from-blue-200 to-white  rounded-lg p-4 w-[350px] h-auto shadow-xl transition-colors duration-100">
           <div className="mb-2 pb-2">
-            <button
-              className="font-2xl font-extrabold" 
-              onClick={toggleChatbox}
-            >
-             <GrClose style={{'fontWeight':'bolder'}}/>
+            <button className="font-2xl font-extrabold" onClick={toggleChatbox}>
+              <GrClose style={{ fontWeight: "bolder" }} />
             </button>
-            <h1 className='text-center font-poppins font-bold mix-blend-normal mb-2'>Your  AI Doctor</h1>
+            <h1 className="text-center font-poppins font-bold mix-blend-normal mb-2">
+              Your AI Doctor
+            </h1>
           </div>
           <div className="h-64 overflow-y-auto">
             {messages.map((message, index) => (
-              <div key={index} className="mb-2  bg-blue-500 text-white rounded-lg p-3 max-w-xs w-full break-words transition-all duration-100">
+              <div
+                key={index}
+                className="mb-2  bg-blue-500 text-white rounded-lg p-3 max-w-xs w-full break-words transition-all duration-100"
+              >
                 {message}
               </div>
             ))}
@@ -74,15 +85,15 @@ const Chatbot = () => {
               type="text"
               className="border rounded p-2 w-full outline-none "
               placeholder="Type your message..."
-              onChange={(e)=>{
-                  setInputMessage(e.target.value)
+              onChange={(e) => {
+                setInputMessage(e.target.value);
               }}
               name="inputmsg"
               value={inputMessage}
             />
             <button
               className="bg-[#146C94] text-white rounded-xl px-4 py-2 ml-2 mt-3 font-poppins"
-              onClick={() => handleMessageSend(inputMessage)}
+              onClick={() => handleSendMessage(inputMessage)}
             >
               Send
             </button>
