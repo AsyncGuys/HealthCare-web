@@ -12,6 +12,7 @@ import Navbar from './components/common/Navbar';
 import DiabetessForm from './components/common/DiabetessForm';
 import HeartForm from './components/common/HeartForm';
 import Eye from './components/common/Eye';
+import LiverInputForm from './components/common/LiverInputForm';
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
         <Route exact path='/checkup' element ={<Home/>}/>
         <Route exact path='/checkup/diabetes' element ={<DiabetessForm/>}/>
         <Route exact path='/checkup/heart' element ={<HeartForm/>}/>
+        <Route exact path='/checkup/liver' element ={<LiverInputForm/>}/>
         <Route exact path='/checkup/eye' element ={<Eye/>}/>
         <Route path='/map' element ={<Map/>} />
         <Route path='/bot' element ={<Bot/>} />

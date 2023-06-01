@@ -1,5 +1,6 @@
 import eye from '../Assets/Card/eye.jpg'
 import dia from '../Assets/Card/diabeties.jpeg'
+import liver from '../Assets/Card/liver.jpeg'
 import mri from '../Assets/Card/MRI.webp'
 import skin from '../Assets/Card/skin.jpg'
 import heart from '../Assets/Card/heartimg.jpg'
@@ -10,6 +11,13 @@ export default [
          image:heart,
          moreinfo:"https://www.mayoclinic.org/diseases-conditions/heart-disease/symptoms-causes/syc-20353118",
          route:'heart'
+      },
+      {
+         name:'Liver',
+         description:"The leading causes of blindness and low vision in the United States are primarily age-related eye diseases such as age-related macular degeneration, cataract, diabetic retinopathy, and glaucoma.Other common eye disorders include amblyopia and strabismus.",
+         image:liver,
+         moreinfo:"https://www.cdc.gov/visionhealth/basics/ced/index.html",
+         route:'liver'
       },
       {
          name:'Mri',

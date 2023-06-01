@@ -7,7 +7,7 @@ const Eye = () => {
     formData.append("image", event.target.image.files[0]);
     try {
       const response = await axios.post(
-        "http://127.0.0.1:3000/alzhimer",
+        "http://127.0.0.1:3000/eye",
         formData
       );
       // Handle the response
