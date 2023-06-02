@@ -12,8 +12,8 @@ const Navbar = () => {
   const Links = [
     { name: "Home", link: "/" },
     { name: "Map", link: "/map" },
-    { name: "Ambulance", link: "/ambulance" },
     { name: "Hospitals", link: "/hospitals" },
+    { name: "Contact Us", link: "/contact" },
   ];
   useEffect(() => {
     function handleScroll() {

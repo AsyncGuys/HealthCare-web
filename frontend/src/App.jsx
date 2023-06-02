@@ -3,9 +3,9 @@ import './App.css'
 import {BrowserRouter , Routes , Route} from 'react-router-dom';
 import Home from '../src/Pages/Home'
 import Map from '../src/Pages/map'
-import Hospitals from '../src/Pages/hospitals'
-import Bot from '../src/Pages/bot'
-import Ambulance from '../src/Pages/ambulance'
+// import Hospitals from '../src/Pages/hospitals'
+// import Bot from '../src/Pages/bot'
+// import Ambulance from '../src/Pages/ambulance'
 import Landing from './Pages/Landing';
 import Footer from './components/common/Footer';
 import Navbar from './components/common/Navbar';
@@ -15,6 +15,7 @@ import Eye from './components/common/Eye';
 import LiverInputForm from './components/common/LiverInputForm';
 import Tumor from './components/common/Tumor';
 import Alzheimer from './components/common/Alzheimer';
+import Contact from './components/common/Contact';
 function App() {
   return (
     <>
@@ -35,8 +36,9 @@ function App() {
         <Route exact path='/checkup/alzheimer' element ={<Alzheimer/>}/>
         <Route path='/map' element ={<Map/>} />
         {/* <Route path='/bot' element ={<Bot/>} /> */}
-        <Route path='/ambulance' element ={<Ambulance/>} />
-        <Route path='/hospitals' element ={<Hospitals/>} />
+        {/* <Route path='/ambulance' element ={<Ambulance/>} /> */}
+        <Route path='/contact' element ={<Contact/>} />
+        <Route path='/hospitals' element ={<Map/>} />
      </Routes>
      </BrowserRouter>
      <Footer/>
