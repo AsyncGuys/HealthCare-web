@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { GrClose } from "react-icons/gr";
 import axios from "axios";
-import bot from '../../Assets/bot.svg'
 const Chatbot = () => {
   const [inputValue, setInputValue] = useState('');
   const [chatLog, setChatLog] = useState([]);
@@ -15,17 +14,16 @@ const Chatbot = () => {
     sendMessage(inputValue);
     setInputValue('');
   }
-  console.log(inputValue)
   const sendMessage = async (inputMessage) => {
     if (!inputMessage) return;
     console.log(inputMessage)
     try {
-      // const response = await fetch(`http://127.0.0.1:4000/ai-doctor`, {
+      // const response = await fetch(`http://127.0.0.1:3000/ai-doctor`, {
       //   method: "POST",
       //   body: inputMessage,
       // });
-      const response = await axios.post("http://127.0.0.1:4000/ai-doctor", {
-        inputMessage:inputMessage,
+      const response = await axios.post(`http://127.0.0.1:3000/ai-doctor`, {
+        inputMessage:inputMessage
       });
       // axios.post('/api/', {
       //   firstName: 'Fred',
@@ -48,11 +46,10 @@ const Chatbot = () => {
     <div className="fixed bottom-4 right-4">
       {!isOpen && (
         <button
-          className="w-20 h-20 rounded-full bg-blue-500 text-white flex items-center justify-center"
+          className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center"
           onClick={toggleChatbox}
         >
-        <img src={bot}/>
-          {/* <svg
+          <svg
             className="w-6 h-6"
             viewBox="0 0 24 24"
             fill="none"
@@ -76,14 +73,14 @@ const Chatbot = () => {
               strokeWidth="2"
               d="M3 18h18"
             />
-          </svg> */}
+          </svg>
         </button>
       )}
       {isOpen && (
         <div className="bg-gradient-to-b from-blue-200 to-white  rounded-lg p-4 w-[350px] h-auto shadow-xl transition-colors duration-100">
           <div className="mb-2 pb-2">
-            <button className="font-2xl font-extrabold" onClick={toggleChatbox}>
-              <GrClose style={{ fontWeight: "bolder" }} />
+            <button className="font-2xl font-extrabold w-[20px] h-[20px]" onClick={toggleChatbox}>
+              <GrClose style={{ fontWeight: "bolder"}} />
             </button>
             <h1 className="text-center font-poppins font-bold mix-blend-normal mb-2">
               Your AI Doctor
@@ -94,7 +91,7 @@ const Chatbot = () => {
               <div
                 key={index}
                 className="mb-2  text-black rounded-lg p-3 max-w-xs w-full break-words transition-all duration-100"
-                style={{backgroundColor: `${chat.type=='user' ? "blue":"white"}`}}
+                style={{backgroundColor: `${chat.type=='user' ? "#ADD8E6":"white"}`}}
               >
                  {chat.message}
               </div>
@@ -111,12 +108,14 @@ const Chatbot = () => {
               name="inputmsg"
               value={inputValue}
             />
-            <button
-              className="bg-[#146C94] text-white rounded-xl px-4 py-2 ml-2 mt-3 font-poppins"
+          <div className="text-right">
+          <button
+              className="bg-[#146C94] text-white rounded-xl px-4 py-2 ml-2 mt-3 font-poppins text-right"
               onClick={handleSubmit}
             >
               Send
             </button>
+            </div>
           </div>
         </div>
       )}

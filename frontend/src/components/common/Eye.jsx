@@ -1,5 +1,9 @@
 import axios from "axios";
+import { useState } from "react";
+import ImageResult from "./ImageResult";
 const Eye = () => {
+  const [result,setResult]=useState(false);
+  const [data,setdata]=useState(null)
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -7,13 +11,15 @@ const Eye = () => {
     formData.append("image", event.target.image.files[0]);
     try {
       const response = await axios.post(
-        "http://127.0.0.1:3000/alzhimer",
+        "http://127.0.0.1:3000/eye",
         formData
       );
       // Handle the response
-      console.log(response);
+      // console.log(response);
       const data = await response.data.prediction;
-      console.log(data);
+      // console.log(data);
+      setdata(data)
+      setResult(true);
     } catch (error) {
       // Handle the error
       console.error(error);
@@ -22,7 +28,7 @@ const Eye = () => {
   };
   return (
     <div className=" w-full h-auto">
-      <div className="w-full h-[100vh] flex justify-center items-center">
+    {!result &&   <div className="w-full h-[100vh] flex justify-center items-center">
         <form onSubmit={handleSubmit}>
           <input type="file" name="image" accept="image/" />
           <button
@@ -32,7 +38,8 @@ const Eye = () => {
             Submit
           </button>
         </form>
-      </div>
+      </div>}
+      {result && <ImageResult name='eye' result={data}/>}
     </div>
   );
 };

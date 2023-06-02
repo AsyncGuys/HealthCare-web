@@ -12,7 +12,6 @@ const Navbar = () => {
   const Links = [
     { name: "Home", link: "/" },
     { name: "Map", link: "/map" },
-    { name: "Doctor-Bot", link: "/bot" },
     { name: "Ambulance", link: "/ambulance" },
     { name: "Hospitals", link: "/hospitals" },
   ];
@@ -26,7 +25,7 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   return (
-    <section id="navbar" className="z-50 w-full fixed top-0 left-0 h-[70px] ">
+    <section id="navbar" className="z-50 w-full fixed top-0 left-0 h-[50px]">
       <div className={`md:flex items-center justify-between py-2 xl:px-16 px-3 md:px-14 bg-opacity-0`} style={{backdropFilter: `blur(${blurValue}px)`}}>
         <Link to="/">
         <div className="cursor-pointer">
