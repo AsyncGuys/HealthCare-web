@@ -72,7 +72,7 @@ const HeartForm = () => {
               onChange={handleChange}
               value={values.sex}
             >
-              <option value="0"></option>
+              {/* <option value="0"></option> */}
               <option value="0">Female</option>
               <option value="1">Male</option>
             </select>
@@ -101,7 +101,7 @@ const HeartForm = () => {
               onChange={handleChange}
               value={values.cp}
             >
-              <option value="0"></option>
+              {/* <option value="0"></option> */}
               <option value="0">typical angina</option>
               <option value="1">atypical angina</option>
               <option value="2">non-anginal pain</option>
@@ -147,14 +147,14 @@ const HeartForm = () => {
               onChange={handleChange}
               value={values.fbs}
             >
-              <option value="0"></option>
+              {/* <option value="0"></option> */}
               <option value="0">No</option>
               <option value="1">Yes</option>
             </select>
           </div>
           <div className="mb-4">
             <label htmlFor="restecg" className="block font-bold mb-1">
-              Chestpain
+              RestECG
             </label>
             <select
               id="restecg"
@@ -163,7 +163,7 @@ const HeartForm = () => {
               onChange={handleChange}
               value={values.rest_ecg}
             >
-              <option value="0"></option>
+              {/* <option value="0"></option> */}
               <option value="0">normal</option>
               <option value="1">having ST-T wave abnormality</option>
               <option value="2">
@@ -226,7 +226,7 @@ const HeartForm = () => {
               onChange={handleChange}
               value={values.slp}
             >
-              <option value="0"></option>
+              {/* <option value="0"></option> */}
               <option value="0">Unsloping</option>
               <option value="1">flat</option>
               <option value="2">downsloping</option>
@@ -244,7 +244,7 @@ const HeartForm = () => {
               onChange={handleChange}
               value={values.caa}
             >
-              <option value="0"></option>
+              {/* <option value="0"></option> */}
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -262,7 +262,7 @@ const HeartForm = () => {
               onChange={handleChange}
               value={values.thall}
             >
-              <option value="0"></option>
+              {/* <option value="0"></option> */}
               <option value="0">null</option>
               <option value="1">fixed defect</option>
               <option value="2">normal</option>

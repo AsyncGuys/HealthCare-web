@@ -14,7 +14,6 @@ const DiabetessForm = () => {
       bmi: 0,
       HbA1c_level: 0,
       blood_glucose_level: 0,
-      diabetes: 0,
     },
     onSubmit: async (values, { resetForm }) => {
       // try{
@@ -56,7 +55,7 @@ const DiabetessForm = () => {
   return (
     <div className="mt-20 mb-14">
      {!result && 
-      <form className="max-w-md mx-auto">
+      <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="gender" className="block font-bold mb-1">
             Gender
@@ -68,7 +67,7 @@ const DiabetessForm = () => {
             onChange={handleChange}
             value={values.gender}
           >
-            <option value="0"></option>
+            {/* <option value="0"></option> */}
             <option value="0">Male</option>
             <option value="1">Female</option>
           </select>
@@ -97,7 +96,7 @@ const DiabetessForm = () => {
             onChange={handleChange}
             value={values.hypertension}
           >
-            <option value="0"></option>
+            {/* <option value="0"></option> */}
             <option value="0">No</option>
             <option value="1">Yes</option>
           </select>
@@ -177,21 +176,6 @@ const DiabetessForm = () => {
             onChange={handleChange}
             value={values.blood_glucose_level}
           />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="diabetes" className="block font-bold mb-1">
-            Diabetes
-          </label>
-          <select
-            id="diabetes"
-            name="diabetes"
-            className="w-full p-2 border border-gray-300 rounded-md"
-            onChange={handleChange}
-            value={values.diabetes}
-          >
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-          </select>
         </div>
         <button
           type="submit"

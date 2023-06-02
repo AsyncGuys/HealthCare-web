@@ -81,7 +81,7 @@ const LiverInputForm = () => {
             onChange={handleChange}
             value={values.gender}
           >
-            <option value="0"></option>
+            {/* <option value="0"></option> */}
             <option value="1">Male</option>
             <option value="0">Female</option>
           </select>

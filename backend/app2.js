@@ -10,6 +10,8 @@ const morgan = require("morgan");
 const helmet  = require("helmet");
 const { Configuration, OpenAIApi } = require("openai");
 const errorMiddleware = require("./middleware/error");
+const dotenv = require("dotenv");
+dotenv.config({ path: "config/config.env" });
 
 const app=express()
 app.use(helmet());
@@ -60,7 +62,9 @@ app.get("/diabetes",function(req,res){
 //     res.sendFile(__dirname+"/test.html")
 // })
 
-
+app.listen(3000,function(){
+    console.log("Server is up and running on port 3000")  
+}) 
 
 
 
@@ -292,8 +296,6 @@ app.post('/alzhimer',upload.single('image'),(req, res) => {
     
 });       
 
-
-
 async function loadAlzhimer(image){
     console.log("Test")
     classes=["mild_demented","moderated_demented","non_demented","ver_mild_demented"]
@@ -332,23 +334,50 @@ async function readImage(path) {
     return k;
   }
 
-//   /* OPEN_AI CONFIGURATION */
+  /* OPEN_AI CONFIGURATION */
 
-// const configuration = new Configuration({
-//     apiKey: process.env.OPEN_API_KEY,
-//   });
-//   exports.openai = new OpenAIApi(configuration);
+const configuration = new Configuration({
+    apiKey: process.env.OPEN_API_KEY,
+  });
+  const openai = new OpenAIApi(configuration);
   
-//   // ROUTE imports
-//   const user = require("./routes/userRoutes");
+  // ROUTE imports
+  const user = require("./routes/userRoutes");
   
-//   app.use("/api/v1", user);
-//   app.use("/openai", openAiRoutes);
+  app.use("/api/v1", user);
+
+  app.post("/ai-doctor", async (req, res) => {
+    try {
+        console.log(req.body)
+      const msg = req.body.inputMessage;
+      console.log(msg)
+      const response = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: `
+        ${msg}
   
-//   //middleware for error
-//   app.use(errorMiddleware);
+        you are a senior doctor and I am a patient tell me the necessary answers in less than 30 words
+        ###
+      `,
+        max_tokens: 64,
+        temperature: 0,
+        top_p: 1.0,
+        frequency_penalty: 0.0,
+        presence_penalty: 0.0,
+        stop: ["\n"],
+      });
+      return res.status(200).json({
+        success: true,
+        data: response.data.choices[0].text,
+      });
+    } catch (error) {
+      console.error(error.response);
+      res.status(500).json({ error: error });
+    }
+  });
+  
+  //middleware for error
+  app.use(errorMiddleware);
 
  
-  app.listen(3000,function(){
-    console.log("Server is up and running on port 4000")  
-}) 
+  

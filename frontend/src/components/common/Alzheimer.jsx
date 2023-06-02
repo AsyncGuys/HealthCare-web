@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import ImageResult from "./ImageResult";
-const Eye = () => {
+const Alzheimer = () => {
   const [result,setResult]=useState(false);
   const [data,setdata]=useState(null)
   const handleSubmit = async (event) => {
@@ -11,7 +11,7 @@ const Eye = () => {
     formData.append("image", event.target.image.files[0]);
     try {
       const response = await axios.post(
-        "http://127.0.0.1:3000/eye",
+        "http://127.0.0.1:3000/alzhimer",
         formData
       );
       // Handle the response
@@ -39,9 +39,9 @@ const Eye = () => {
           </button>
         </form>
       </div>}
-      {result && <ImageResult name='eye' result={data}/>}
+      {result && <ImageResult name='alzheimer' result={data}/>}
     </div>
   );
 };
 
-export default Eye;
+export default Alzheimer;
