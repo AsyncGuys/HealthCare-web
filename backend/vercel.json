@@ -2,9 +2,9 @@
     "version": 2,
     "name": "health-care",
     "builds":[
-        { "src": "app2.js", "use": "@vercel/node" }
+        { "src": "server.js", "use": "@vercel/node" }
     ],
     "routes": [
-        { "src": "/.*", "dest": "/app2.js"}
+        { "src": "/.*", "dest": "/server.js"}
     ]
 }
