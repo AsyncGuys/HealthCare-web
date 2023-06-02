@@ -1,28 +1,35 @@
 const express = require("express");
 const dotenv = require("dotenv");
 
-const { openai } = require("../app");
+const { openai } = require("../app2");
 
 dotenv.config();
 const router = express.Router();
 
-router.post("/text", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const { text } = req.body;
-
-    const response = await openai.createChatCompletion({
+      console.log(req.body)
+    const msg = req.body.inputMessage;
+    console.log(msg)
+    const response = await openai.createCompletion({
       model: "text-davinci-003",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are a helpful senior doctor and you have to help the patients by providing them necessary answers.",
-        }, // this represents the bot and what role they will assume
-        { role: "user", content: text }, // the message that the user sends
-      ],
-    });
+      prompt: `
+      ${msg}
 
-    res.status(200).json({ text: response.data.choices[0].message.content });
+      you are a senior doctor and I am a patient tell me the necessary answers in less than 30 words
+      ###
+    `,
+      max_tokens: 64,
+      temperature: 0,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+      stop: ["\n"],
+    });
+    return res.status(200).json({
+      success: true,
+      data: response.data.choices[0].text,
+    });
   } catch (error) {
     console.error(error.response);
     res.status(500).json({ error: error });

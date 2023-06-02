@@ -36,121 +36,14 @@ const upload = multer({storage:storage});
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended:false}))
 
-app.get("/",function(req,res){
-    // res.sendFile(__dirname+"/index.html")
-    res.send("HI")
-})
-
-app.get("/heart",function(req,res){
-    res.send(path.dirname(__dirname)+"/frontend/src/components/common/HeartForm.jsx")
-})
-
-app.get("/diabetes",function(req,res){
-    res.send(path.dirname(__dirname)+"/frontend/src/components/common/DiabetessForm.jsx")
-})
-
-
-// app.get("/tumor",function(req,res){
-//     res.sendFile(__dirname+"/test.html")
-// })
-
-// app.get("/tumor",function(req,res){
-//     res.sendFile(__dirname+"/test.html")
-// })
-
-// app.get("/tumor",function(req,res){
-//     res.sendFile(__dirname+"/test.html")
-// })
 
 app.listen(3000,function(){
     console.log("Server is up and running on port 3000")  
 }) 
 
+const diseases = require("./routes/diseases")
 
-
-app.post("/heart",function(req,res){
-    console.log("Test`")
-    var list=[[parseInt(req.body.sex),
-            req.body.age/100,
-            parseInt(req.body.cp),
-            (req.body.trtbps-94)/(170-94),
-            (req.body.chol-126)/(370.375-126),
-            parseInt(req.body.fbs),
-            parseInt(req.body.rest_ecg),
-            (req.body.thalach-87.25)/(202-87.25),
-            req.body.exang,
-            req.body.oldpeak/4,
-            parseInt(req.body.slp),
-            parseInt(req.body.caa),
-            parseInt(req.body.thall)]]
-    console.log(list)
-    const predictions=async()=>{
-        const pred=await loadheart(list)
-        console.log("pred:"+pred)
-        res.send({
-            predict:pred
-        })
-    }
-    predictions()
-})
-
-async function loadheart(list){
-    classes=["No","Yes"]
-    const model=await tfjs.loadLayersModel("file://"+__dirname+"/MLmodels/tfjHeart/model.json")
-    console.log()
-    list=tfjs.tensor(list)
-    console.log(list.shape)
-    // list=tfjs.expandDims(list)
-    // console.log(list.shape)
-    const y_pred= model.predict(list)
-    console.log(tfjs.round(y_pred.dataSync()[0]))
-    const prediction=tfjs.round(y_pred)
-    // const accuracy=y_pred.dataSync()[prediction.dataSync()]
-    return classes[prediction.dataSync()[0]]
-}
-
-
-
-
-
-app.post("/liver",function(req,res){
-    console.log("Test`")
-    var list=[[req.body.age/100,
-            parseInt(req.body.gender),
-            req.body.total_Bilirubin/6,
-            req.body.direct_Bilirubin/3,
-            (req.body.alkaline_Phosphotase-63)/(482-63),
-            (req.body.alamine_Aminotransferase-10)/110,
-            (req.body.aspartate_Aminotransferase-10)/170,
-            req.body.total_protein/10,
-            req.body.albumim/6,
-            req.body.ratio/2]]
-    console.log(list)
-    const predictions=async()=>{
-        const pred=await loadLiver(list)
-        console.log("pred:"+pred)
-        res.send({
-            predict:pred
-        })
-    }
-    predictions()
-})
-
-async function loadLiver(list){
-    classes=["No","Yes"]
-    const model=await tfjs.loadLayersModel("file://"+__dirname+"/MLmodels/tfjLiver/model.json")
-    console.log()
-    list=tfjs.tensor(list)
-    console.log(list.shape)
-    // list=tfjs.expandDims(list)
-    // console.log(list.shape)
-    const y_pred= model.predict(list)
-    console.log(tfjs.round(y_pred.dataSync()[0]))
-    const prediction=tfjs.round(y_pred)
-    // const accuracy=y_pred.dataSync()[prediction.dataSync()]
-    return classes[prediction.dataSync()[0]]
-}
-
+app.use("/disease", diseases);
 
 
 
@@ -339,42 +232,15 @@ async function readImage(path) {
 const configuration = new Configuration({
     apiKey: process.env.OPEN_API_KEY,
   });
-  const openai = new OpenAIApi(configuration);
+  exports.openai = new OpenAIApi(configuration);
+
+  const aiController = require("./controllers/openAiController") 
   
   // ROUTE imports
   const user = require("./routes/userRoutes");
   
   app.use("/api/v1", user);
-
-  app.post("/ai-doctor", async (req, res) => {
-    try {
-        console.log(req.body)
-      const msg = req.body.inputMessage;
-      console.log(msg)
-      const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: `
-        ${msg}
-  
-        you are a senior doctor and I am a patient tell me the necessary answers in less than 30 words
-        ###
-      `,
-        max_tokens: 64,
-        temperature: 0,
-        top_p: 1.0,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-        stop: ["\n"],
-      });
-      return res.status(200).json({
-        success: true,
-        data: response.data.choices[0].text,
-      });
-    } catch (error) {
-      console.error(error.response);
-      res.status(500).json({ error: error });
-    }
-  });
+  app.use("/ai-doctor", aiController)
   
   //middleware for error
   app.use(errorMiddleware);

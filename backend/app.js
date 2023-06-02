@@ -5,7 +5,7 @@ const errorMiddleware = require("./middleware/error");
 const helmet = require("helmet");
 const { Configuration, OpenAIApi } = require("openai");
 const morgan = require("morgan");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 
