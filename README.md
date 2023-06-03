@@ -19,6 +19,7 @@ This AI based model can be helpful for the assistant present in the laboratories
 
 ## Links
 [Devfolio-Link](https://devfolio.co/projects/care-bd47).
+[Video-Link](https://www.youtube.com/watch?v=WOgRFdKzHV0&t=2s).
 
 
 
