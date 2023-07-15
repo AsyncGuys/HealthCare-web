@@ -49,8 +49,6 @@ app.use("/disease", diseases);
 
 
 
-
-
 app.post("/diabetes",function(req,res){
     console.log("Test`")
     var list=[[parseInt(req.body.gender),
@@ -128,6 +126,9 @@ async function loadTumor(image){
     const accuracy=y_pred.dataSync()[prediction.dataSync()]
     return classes[prediction.dataSync()[0]]
 }
+
+
+
 
 
 
