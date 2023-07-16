@@ -37,8 +37,8 @@ app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended:false}))
 
 
-app.listen(5173,function(){
-    console.log("Server is up and running on port 5173")  
+app.listen(3000,function(){
+    console.log("Server is up and running on port 3000")  
 }) 
 
 const diseases = require("./routes/diseases")
