@@ -31,7 +31,7 @@ const DiabetessForm = () => {
       console.log(values);
 
       try {
-        const response = await fetch("http://127.0.0.1:3000/diabetes", {
+        const response = await fetch("https://healthcare-1bc3.onrender.com/diabetes", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

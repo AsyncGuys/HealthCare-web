@@ -11,7 +11,7 @@ const Tumor = () => {
     formData.append("image", event.target.image.files[0]);
     try {
       const response = await axios.post(
-        "http://127.0.0.1:3000/tumor",
+        "https://healthcare-1bc3.onrender.com/tumor",
         formData
       );
       // Handle the response

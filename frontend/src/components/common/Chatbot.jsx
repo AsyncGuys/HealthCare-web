@@ -23,7 +23,7 @@ const Chatbot = () => {
       //   method: "POST",
       //   body: inputMessage,
       // });
-      const response = await axios.post(`http://127.0.0.1:3000/ai-doctor`, {
+      const response = await axios.post(`https://healthcare-1bc3.onrender.com/ai-doctor`, {
         inputMessage:inputMessage
       });
       // axios.post('/api/', {
