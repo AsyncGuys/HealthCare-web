@@ -1,7 +1,7 @@
 
 import banner from "../Assets/banner.svg";
 import { useNavigate } from "react-router-dom";
-import Chatbot from "../components/common/Chatbot";
+// import Chatbot from "../components/common/Chatbot";
 
 const Landing = () => {
       const navigate=useNavigate()
@@ -20,7 +20,7 @@ const Landing = () => {
                <img src={banner} className="h-auto m-auto"/>
             </div>
       </div>
-      <Chatbot/>
+      {/* <Chatbot/> */}
     </div>
   )
 }
